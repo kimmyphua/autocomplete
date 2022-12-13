@@ -1,6 +1,5 @@
 import { NextUIProvider } from "@nextui-org/react";
 import { darkTheme } from "./components/ui/darkTheme";
-
 import AutocompleteWrapper from "./components/ui/AutocompleteWrapper";
 import { useState } from "react";
 

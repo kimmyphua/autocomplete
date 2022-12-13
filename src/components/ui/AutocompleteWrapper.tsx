@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-
 import { Button, Col, Container, Row, Text } from "@nextui-org/react";
 import Autocomplete from "./Autocomplete";
-
 import { Country } from "../../ts/Country.interface";
-
 import classes from "./ui.module.css";
 interface IAutocompleteWrapper {
  setIsDark: () => void;

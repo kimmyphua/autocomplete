@@ -1,32 +1,26 @@
-import { SetStateAction, useEffect, useState } from "react";
+import { SetStateAction, useState } from "react";
 
 import { Country } from "../ts/Country.interface";
 
-const useAutocomplete = (
- data: Country[],
- inputSearchRef: HTMLInputElement | null
-) => {
+const useAutocomplete = (data: Country[]) => {
  const [searchedValue, setSearchedValue] = useState("");
  const [suggestions, setSuggestions] = useState<Country[]>([]);
  const [selectedSuggestion, setSelectedSuggestion] = useState("");
  const [activeSuggestion, setActiveSuggestion] = useState(0);
 
- useEffect(() => {
-  if (inputSearchRef) {
-   inputSearchRef.focus();
-  }
- }, []);
+ const filterSuggestions = (val: string) => {
+  return data.filter((itemData) => {
+   const value = val.toUpperCase();
+   const name = itemData.name.common.toUpperCase();
 
+   return value && name.startsWith(value);
+  });
+ };
  const handleChange = (event: {
   target: { value: SetStateAction<string> };
  }): void => {
   if (event.target.value !== "") {
-   const filteredSuggestions = data.filter((itemData) => {
-    const value = event.target.value.toString().toUpperCase();
-    const name = itemData.name.common.toUpperCase();
-
-    return value && name.startsWith(value) && name !== value;
-   });
+   const filteredSuggestions = filterSuggestions(event.target.value.toString());
    setSearchedValue(event.target.value);
    setSuggestions(filteredSuggestions);
   } else {
@@ -51,10 +45,9 @@ const useAutocomplete = (
 
  const handleClick = (value: string) => {
   setSearchedValue(value);
-  setSuggestions([]);
+  setSuggestions(filterSuggestions(value));
   setSelectedSuggestion(value);
   setActiveSuggestion(0);
-  //do something else
  };
 
  return {
