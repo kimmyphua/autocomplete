@@ -1,6 +1,5 @@
 import { SetStateAction, useState } from "react";
-
-import { Country } from "../ts/Country.interface";
+import { Country } from "../components/Autocomplete";
 
 const useAutocomplete = (data: Country[]) => {
  const [searchedValue, setSearchedValue] = useState("");

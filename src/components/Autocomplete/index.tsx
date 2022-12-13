@@ -1,17 +1,31 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Button, Col, Container, Row, Text } from "@nextui-org/react";
-import Autocomplete from "./Autocomplete";
-import { Country } from "../../ts/Country.interface";
-import classes from "./ui.module.css";
-interface IAutocompleteWrapper {
+import AutocompleteList from "./AutocompleteList";
+import classes from "../ui.module.css";
+
+export type Country = {
+ name: Name;
+ flags: Flags;
+};
+
+type Name = {
+ common: string;
+};
+
+type Flags = {
+ png: string;
+ svg: string;
+};
+interface Props {
+ data: Country[];
+}
+
+interface IAutocomplete {
  setIsDark: () => void;
  isDark: boolean;
 }
-const AutocompleteWrapper: React.FC<IAutocompleteWrapper> = ({
- setIsDark,
- isDark,
-}) => {
+const Autocomplete: React.FC<IAutocomplete> = ({ setIsDark, isDark }) => {
  const [data, setData] = useState<Country[]>([]);
 
  useEffect(() => {
@@ -39,8 +53,13 @@ const AutocompleteWrapper: React.FC<IAutocompleteWrapper> = ({
       alignItems: "center",
       gap: "5px",
      }}>
-     <Button color="gradient" auto onClick={setIsDark} rounded bordered>
-      {" "}
+     <Button
+      data-testid="theme-button"
+      color="gradient"
+      auto
+      onPress={setIsDark}
+      rounded
+      bordered>
       {isDark ? "Light" : "Dark"} Theme
      </Button>
     </Text>
@@ -60,7 +79,7 @@ const AutocompleteWrapper: React.FC<IAutocompleteWrapper> = ({
     </Row>
     <Row>
      <Col className={classes.autocompleteContainer}>
-      <Autocomplete data={data} />
+      <AutocompleteList data={data} />
      </Col>
     </Row>
    </div>
@@ -68,4 +87,4 @@ const AutocompleteWrapper: React.FC<IAutocompleteWrapper> = ({
  );
 };
 
-export default AutocompleteWrapper;
+export default Autocomplete;

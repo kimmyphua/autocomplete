@@ -1,18 +1,17 @@
+import { NextUIProvider } from "@nextui-org/react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import Autocomplete from "./components/ui/Autocomplete";
-import { mockData } from "./mock";
+import App from "./App";
+import { darkTheme } from "./components/utils";
 
-describe("Autocomplete", () => {
- it("should render search input and data", async () => {
-  render(<Autocomplete data={mockData} />);
-  const searchInput = screen.getByTestId("search-input");
-  expect(searchInput).toBeInTheDocument();
+describe("App", () => {
+ it("should toggle themes", async () => {
+  render(<App />);
 
-  await userEvent.click(searchInput);
-  const dominicaOption = screen.getByText("Dominica");
-  expect(dominicaOption).toBeInTheDocument();
-  await userEvent.click(dominicaOption);
-  expect(searchInput).toHaveValue("Dominica");
+  const themeBtn = screen.getByTestId("theme-button");
+  expect(themeBtn).toBeInTheDocument();
+  expect(themeBtn.textContent).toBe("Dark Theme");
+  await userEvent.click(themeBtn);
+  expect(themeBtn.textContent).toBe("Light Theme");
  });
 });

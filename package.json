@@ -55,7 +55,14 @@
    "!src/serviceWorker.ts",
    "!<rootDir>/node_modules/"
   ],
-  "coveragePathIgnorePatterns": [],
+  "moduleNameMapper": {
+   "axios": "axios/dist/node/axios.cjs"
+  },
+  "coveragePathIgnorePatterns": [
+   "src/index.tsx",
+   "src/reportWebVitals.ts",
+   "src/ts"
+  ],
   "transformIgnorePatterns": [
    "node_modules/(?!(swiper|ssr-window|dom7)).*\\.js$"
   ],
