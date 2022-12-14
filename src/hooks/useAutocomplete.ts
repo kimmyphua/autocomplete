@@ -4,7 +4,7 @@ import { Country } from "../components/Autocomplete";
 const useAutocomplete = (data: Country[]) => {
  const [searchedValue, setSearchedValue] = useState("");
  const [suggestions, setSuggestions] = useState<Country[]>([]);
- const [selectedSuggestion, setSelectedSuggestion] = useState("");
+ const [selectedSuggestion, setSelectedSuggestion] = useState<Country>();
  const [activeSuggestion, setActiveSuggestion] = useState(0);
 
  const filterSuggestions = (val: string) => {
@@ -12,7 +12,7 @@ const useAutocomplete = (data: Country[]) => {
    const value = val.toUpperCase();
    const name = itemData.name.common.toUpperCase();
 
-   return value && name.startsWith(value);
+   return value && name.match(value);
   });
  };
  const handleChange = (event: {
@@ -25,7 +25,7 @@ const useAutocomplete = (data: Country[]) => {
   } else {
    setSearchedValue("");
    setSuggestions([]);
-   setSelectedSuggestion("");
+   setSelectedSuggestion(undefined);
    setActiveSuggestion(0);
   }
  };
@@ -36,7 +36,9 @@ const useAutocomplete = (data: Country[]) => {
    setActiveSuggestion(activeSuggestion - 1);
   } else if (event.key === "Enter") {
    setSearchedValue(suggestions[activeSuggestion - 1].name.common);
-   setSelectedSuggestion(suggestions[activeSuggestion - 1].name.common);
+   setSelectedSuggestion(
+    filterSuggestions(suggestions[activeSuggestion - 1].name.common)[0]
+   );
    setSuggestions([]);
    setActiveSuggestion(0);
   }
@@ -45,7 +47,7 @@ const useAutocomplete = (data: Country[]) => {
  const handleClick = (value: string) => {
   setSearchedValue(value);
   setSuggestions(filterSuggestions(value));
-  setSelectedSuggestion(value);
+  setSelectedSuggestion(filterSuggestions(value)[0]);
   setActiveSuggestion(0);
  };
 

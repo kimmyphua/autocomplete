@@ -1,8 +1,10 @@
 .autocomplete {
- padding-top: 2rem;
+ padding-top: 1rem;
  display: flex;
- flex-direction: column;
- justify-content: center;
+ flex-direction: row;
+ gap: 32px;
+ justify-content: space-evenly;
+ width: 100%;
 }
 
 .itemListNot {
@@ -11,32 +13,28 @@
 }
 
 .itemList {
- padding-top: 0.5rem;
+ padding: 0.5rem 0;
 }
 
 .itemList:hover {
  cursor: pointer;
- background-color: #697177;
+ background-color: #76a0c2;
 }
 
 .activeItem {
- background-color: #697177;
+ background-color: #937ca4;
 }
-
+.selectionContainer {
+ width: 100%;
+ display: flex;
+ align-items: center;
+ flex-direction: column;
+ text-align: start;
+}
 .autocompleteContainer {
- width: 60%;
+ width: 100%;
  margin: auto;
  padding: 1rem;
-}
-
-.aside {
- padding: 10px 20px 0 0;
- border-right: 1px solid rgb(215, 206, 206);
- width: max-content;
- font-size: 14px;
- display: flex;
- flex-direction: column;
- height: 100vh;
 }
 
 .container {
@@ -45,11 +43,18 @@
  justify-content: space-evenly;
  width: 100%;
 }
-.main {
- flex: 1;
+
+.nativeNameList {
+ border: 1px solid #76a0c2;
+ padding: 3px 5px 0 10px;
+ border-radius: 4px;
+ min-width: 60%;
 }
+
 @media screen and (max-width: 768px) {
- .autocompleteContainer {
-  width: 100%;
+ .autocomplete {
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
  }
 }
